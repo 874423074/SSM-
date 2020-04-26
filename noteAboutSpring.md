@@ -236,3 +236,64 @@
   - 导入jar包
     - 核心:4+1
     - AOP:AOP联盟（规范），spring aop（实现）
+- spring编写代理：全自动
+  - 从spring容器获得目标类，如果配置了aop，spring将自动生成代理
+  - 要确定目标类，aspectj 切入点表达式，导入jar包
+
+## AspectJ
+- 介绍
+  - AspectJ是一个基于Java语言的AOP框架
+  - spring2.0以后新增了对AspectJ切点表达式的支持
+  - @AspectJ是AspectJ1.5新增功能，通过JDK5注解技术，允许直接在Bean类中定义切面
+  - 主要用途：自定义开发
+- 切入点表达式
+  1. execution() 用于描述方法
+     - 语法: execution(修饰符 返回值 包.类.方法（参数）throw 异常)
+       - 修饰符: 一般省略
+         - public 公共方法
+         - ```*```      任意
+       - 返回值
+         - void 没有返回值
+         - String 返回字符串
+         - ``` * ``` 任意
+       - 包，[省略]
+         - 固定包
+         - 目录.*.service  固定目录下任意子包
+         - com.itheima.crm..  crm下所有子包
+         - com.itheima.crm.*.service.. crm包下面任意子包固定目录service目录下的任意包
+       - 类，[省略]
+         - UserServiceImpl  指定类
+         - *Impl            以Impl结尾
+         - User*            以User开头
+         - ```*```          任意
+       - 方法
+         - addUser  固定方法
+         - add* 以add开头
+         - *add 以add结尾
+         - ```*``` 任意
+       - （参数
+         - () 无参
+         - (int) 一个整形
+         - (int int) 两个
+         - (..) 参数任意
+       - throw，可省略 一般不写
+       - 综合：execution(* com.itheima.crm.*.service..*.*(..))
+  2. bean(id) 对指定的bean所有的方法
+     - bean("userServiceId") 
+  3. AspectJ通知类型
+     - aop联盟定义通知类型，具有固定接口，必须实现，从而确定方法名称
+     - aspectj通知类型，只定义名称。以及方法格式
+     - 个数:6种;知道5种，掌握一种
+       - before
+       - afterReturnning
+       - around
+         - 必须手动执行目标方法
+       - afterThrowing
+       - after
+     - 导入jar包：4个
+       - aop联盟
+       - spring-aop
+       - aspect规范
+       - spring-aspect
+- 基于xml
+- 基于注解的学习
